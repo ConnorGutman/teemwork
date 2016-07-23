@@ -1,0 +1,89 @@
+.card-teemup .content {
+  padding: 0 30px !important;
+}
+#listModeWrapper {
+  position: absolute;
+}
+#list-view-container {
+  .col-sm-4 {
+    min-height: 0 !important;
+    transition: 0.5s all ease;
+    &:hover {
+      opacity: 0.9;
+      .card-link-btn {
+        opacity: 1 !important;
+      }
+    }
+    .card-link-btn {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      opacity: 0;
+      transition: 0.75s all ease;
+    }
+  }
+}
+#welcomeCard {
+  padding: 2vh 0;
+}
+.card-list-view {
+  height: 30vh;
+  margin-bottom: 2vh;
+  img {
+    width: 100%;
+  }
+  h4 {
+    margin: 2vh 0;
+    span {
+      color: #4caf50;
+    }
+  }
+  .card-list-view-img {}
+  .fullscreen-btn-wrapper {
+    height: 10vh;
+    button {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+    }
+  }
+}
+.tutorial {
+  padding: 5vh 15%;
+}
+.tutorial-points {}
+.tutorial-steps {
+  padding: 0 15%;
+}
+#salePercentage {
+  color: #4caf50;
+}
+#designSideBar {
+  margin-bottom: 2vh;
+}
+.sidebar-btn-col-xs-6 {
+  padding: 0 1%;
+  #teemUpBtn,
+  #viewStoreBtn {
+    width: 100%;
+  }
+}
+#designNav {}
+#postNav {
+  margin-bottom: 2vh;
+}
+@media(min-width: 768px) {
+  .footer {
+    // navbar class
+    display: none;
+  }
+}
+.modal {
+  .red-link {
+    color: #f44336;
+    text-decoration: underline;
+  }
+}
