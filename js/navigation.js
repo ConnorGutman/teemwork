@@ -26,7 +26,7 @@ $.getJSON("designs.json", function(data) {
   $('#postNav').bootpag({
     total: max,
     page: current,
-    maxVisible: 7,
+    maxVisible: 6,
     href: "#pro-page-{{number}}",
     leaps: false,
     next: '<i class="material-icons fa fa-chevron-right"></i>',
@@ -59,14 +59,28 @@ $.getJSON("designs.json", function(data) {
   //Assign variables
 
   //Pagination ...
-  $( ".pagination > li:nth-child(8) > *" ).append("...");
+  $( ".pagination > li:nth-child(7) > *" ).append("...");
 
   //Custom prev/next controls
   $("#previousDesign").click(function() {
-      $(".prev").click();
+      if($('#postNav').hasClass("hidden")) {
+        $("#cardNav > ul > .prev").click();
+        $("#postNav > ul > .prev").click();
+        $("#postNav > ul > li:nth-of-type(2)").click();
+      } else {
+      $("#postNav > ul > .prev").click();
+      }
   });
 
   $("#nextDesign").click(function() {
-    $(".next").click();
+    if($('#postNav').hasClass("hidden")) {
+      if(!$('#cardNav > ul > .next').hasClass("disabled")) {
+      $("#cardNav > ul > .next").click();
+      $("#postNav > ul > li:nth-last-child(2)").click();
+      $("#postNav > ul > .next").click();
+      }
+    } else {
+    $("#postNav > ul > .next").click();
+    }
   });
 });

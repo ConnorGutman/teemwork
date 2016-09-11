@@ -3,6 +3,11 @@ $.getJSON("designs.json", function(data) {
     $("#fullscreen-view-container").toggleClass("hidden");
     $("#list-view-container").toggleClass("hidden");
     $("#postNav").toggleClass("hidden");
+    $("#cardNav").removeClass("hidden");
+
+    while(!$("#postNav > ul > .prev").hasClass("disabled")) {
+      $("#postNav > ul > .prev").click();
+    };
 
     //Generate all of the cards
     var maxVisible = 6;
@@ -10,21 +15,31 @@ $.getJSON("designs.json", function(data) {
     var cardImg = "";
     var cardName = "";
     var cardLink = "";
-    var cardSplit ="";
+    var cardSplit = "";
     for (var i = 0; i < cardCount; i++) {
       var pageNumb = Math.ceil((i + 1) / 6);
       cardName = data[i].name;
       cardImg = data[i].photo;
       cardSplit = data[i].split;
-      var card = '<div class="col-sm-4"><div class="card card-list-view" page-numb="' + pageNumb + '"><div class="col-xs-12 card-list-view-img"><a class="btn btn-danger btn-fab card-link-btn"><i class="material-icons">zoom_out_map</i></a><img src="' + cardImg + '"></div><div class="col-xs-12"><h4>' + cardName + ' - ' + '<span>' + cardSplit + '%' + '</span>' + '</h4></div></div></div>';
+      var card = '<div class="col-sm-4 expand-card" test-attr=' + i + '><div class="card card-list-view" page-numb="' + pageNumb + '"><div class="col-xs-12 card-list-view-img"><a class="btn btn-danger btn-fab card-link-btn"><i class="material-icons">zoom_out_map</i></a><img src="' + cardImg + '"></div><div class="col-xs-12"><h4>' + cardName + ' - ' + '<span>' + cardSplit + '%' + '</span>' + '</h4></div></div></div>';
       if (i < maxVisible) {
         $("#list-view-container").append(card);
       } else {
-        card = '<div class="col-sm-4"><div class="card card-list-view hidden" page-numb="' + pageNumb + '"><div class="col-xs-12 card-list-view-img"><a class="btn btn-danger btn-fab card-link-btn"><i class="material-icons">zoom_out_map</i></a><img src="' + cardImg + '"></div><div class="col-xs-12"><h4>' + cardName + ' - ' + '<span>' + cardSplit + '%' + '</span>' + '</h4></div></div></div>';
+        card = '<div class="col-sm-4 expand-card" test-attr=' + i + '><div class="card card-list-view hidden" page-numb="' + pageNumb + '"><div class="col-xs-12 card-list-view-img"><a class="btn btn-danger btn-fab card-link-btn"><i class="material-icons">zoom_out_map</i></a><img src="' + cardImg + '"></div><div class="col-xs-12"><h4>' + cardName + ' - ' + '<span>' + cardSplit + '%' + '</span>' + '</h4></div></div></div>';
         $("#list-view-container").append(card);
       }
     }
-
+    //Expand card on click
+    $(".expand-card").click(function() {
+      var cardNumb = $(this).attr("test-attr");
+      cardNumb++;
+      $("#postNav > ul > li[class!='next'][class!='prev'][data-lp=" + cardNumb + "]").click();
+      $("#fullscreen-view-container").toggleClass("hidden");
+      $("#list-view-container").toggleClass("hidden");
+      $("#postNav").toggleClass("hidden");
+      $("#cardNav").toggleClass("hidden");
+      $("#list-view-container").html('');
+    });
     //init navigation variables
     var current = 1;
     var max = data.length;
@@ -43,8 +58,8 @@ $.getJSON("designs.json", function(data) {
       next: '<i class="material-icons fa fa-chevron-right"></i>',
       prev: '<i class="material-icons fa fa-chevron-left"></i>'
     }).on('page', function(event, num) {
-      $( ".card-list-view[page-numb='" + num + "']" ).removeClass('hidden');
-      $( ".card-list-view[page-numb!='" + num + "']" ).addClass('hidden');
+      $(".card-list-view[page-numb='" + num + "']").removeClass('hidden');
+      $(".card-list-view[page-numb!='" + num + "']").addClass('hidden');
     });
   });
 });
